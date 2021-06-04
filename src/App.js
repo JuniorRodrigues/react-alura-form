@@ -23,13 +23,19 @@ function App () {
             <CssBaseline/>
             <Container maxWidth="sm" component="article">
                 <Typography variant="h3" component="h1" align="center">Formulário de Cadastro</Typography>
-                <FormularioCadastro aoEnviar={ aoEnviarForm } />
+                <FormularioCadastro aoEnviar={ aoEnviarForm } validarCPF={ validarCPF } />
             </Container>
         </ThemeProvider>
     );
 
-    function aoEnviarForm(dados) {
+    function aoEnviarForm (dados) {
         console.table(dados)
+    }
+
+    function validarCPF (cpfNumber) {
+        return (cpfNumber.length !== 11)
+        ? { valido: false, texto: 'O CPF deve ter 11 dígitos' }
+        : { valido: true, texto: '' };
     }
 }
 
