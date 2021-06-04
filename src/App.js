@@ -23,10 +23,14 @@ function App () {
             <CssBaseline/>
             <Container maxWidth="sm" component="article">
                 <Typography variant="h3" component="h1" align="center">Formulário de Cadastro</Typography>
-                <FormularioCadastro />
+                <FormularioCadastro aoEnviar={ aoEnviarForm } />
             </Container>
         </ThemeProvider>
     );
+
+    function aoEnviarForm(dados) {
+        console.table(dados)
+    }
 }
 
 export default App;
