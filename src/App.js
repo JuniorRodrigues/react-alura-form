@@ -4,6 +4,7 @@ import './App.css';
 import FormularioCadastro from './components/FormularioCadastro';
 import 'fontsource-roboto';
 
+import { validarCPF, validarSenha } from './models/cadastro';
 
 function App () {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -23,19 +24,13 @@ function App () {
             <CssBaseline/>
             <Container maxWidth="sm" component="article">
                 <Typography variant="h3" component="h1" align="center">Formulário de Cadastro</Typography>
-                <FormularioCadastro aoEnviar={ aoEnviarForm } validarCPF={ validarCPF } />
+                <FormularioCadastro aoEnviar={ aoEnviarForm } validacoes={{ cpf: validarCPF, senha: validarSenha }} />
             </Container>
         </ThemeProvider>
     );
 
     function aoEnviarForm (dados) {
         console.table(dados)
-    }
-
-    function validarCPF (cpfNumber) {
-        return (cpfNumber.length !== 11)
-        ? { valido: false, texto: 'O CPF deve ter 11 dígitos' }
-        : { valido: true, texto: '' };
     }
 }
 
