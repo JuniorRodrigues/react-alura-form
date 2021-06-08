@@ -10,4 +10,10 @@ function validarSenha (senha) {
     : { valido: true, texto: '' };
 }
 
-export { validarCPF, validarSenha };
+function validarNome (nome) {
+    return (nome.length < 4 || nome.length > 72)
+    ? { valido: false, texto: 'A nome deve ter entre 4 e 72 dígitos.' }
+    : { valido: true, texto: '' };
+}
+
+export { validarCPF, validarSenha, validarNome };

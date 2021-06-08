@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, TextField, FormControlLabel, Switch } from "@material-ui/core";
 import './styles.css';
+import ValidacoesCadastro from "../../contexts/ValidacoesCadastro";
 
-function DadosPessoais ({ aoEnviar, validacoes }) {
-    const [ nome, setNome ] = useState('');
+function DadosPessoais ({ aoEnviar }) {
+    const [ nome, setNome ]           = useState('');
     const [ sobrenome, setSobrenome ] = useState('');
-    const [ cpf, setCpf ] = useState('');
+    const [ cpf, setCpf ]             = useState('');
     const [ promocoes, setPromocoes ] = useState(true);
     const [ novidades, setNovidades ] = useState(true);
 
     const [ erros, setErros ] = useState({ cpf: { valido: true, texto: ''} });
 
+    const validacoes = useContext(ValidacoesCadastro);
     function validarCampos (event) {
         const { name, value } = event.target;
         const novoEstado = { ...erros };
@@ -18,10 +20,18 @@ function DadosPessoais ({ aoEnviar, validacoes }) {
         setErros(novoEstado);
     }
 
+    function possoEnviar () {
+        for (let campo in erros) {
+            if (!erros[campo].valido) return false;
+        }
+
+        return true;
+    }
+
     return(
         <form onSubmit={(event) => {
             event.preventDefault();
-            aoEnviar({nome, sobrenome, cpf, promocoes, novidades});
+            if (possoEnviar()) aoEnviar({nome, sobrenome, cpf, promocoes, novidades});
         }}>
             <TextField
                 id="nome"

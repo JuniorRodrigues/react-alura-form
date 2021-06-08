@@ -4,7 +4,8 @@ import './App.css';
 import FormularioCadastro from './components/FormularioCadastro';
 import 'fontsource-roboto';
 
-import { validarCPF, validarSenha } from './models/cadastro';
+import { validarCPF, validarSenha, validarNome } from './models/cadastro';
+import ValidacoesCadastro from './contexts/ValidacoesCadastro';
 
 function App () {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -24,7 +25,9 @@ function App () {
             <CssBaseline/>
             <Container maxWidth="sm" component="article">
                 <Typography variant="h3" component="h1" align="center">Formulário de Cadastro</Typography>
-                <FormularioCadastro aoEnviar={ aoEnviarForm } validacoes={{ cpf: validarCPF, senha: validarSenha }} />
+                <ValidacoesCadastro.Provider value={{ cpf: validarCPF, senha: validarSenha, nome: validarNome }}>
+                    <FormularioCadastro aoEnviar={ aoEnviarForm } />
+                </ValidacoesCadastro.Provider>
             </Container>
         </ThemeProvider>
     );
